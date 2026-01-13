@@ -26,7 +26,46 @@ jobs:
       run: df -h
 
     - name: Top-level directories
-      run: sudo du -h --max-depth=1 /usr/local /usr/share /usr/lib /opt//hostedtoolcache /mnt /home  # du -h -d1 / | sort -hr | head -n 20
+      run: sudo du -h --max-depth=1 /usr/local/lib /usr/local/.ghcup /usr/share /usr/lib /opt//hostedtoolcache /mnt /home  # du -h -d1 / | sort -hr | head -n 20
 
     - name: Detailed file sizes
       run: find / -type f -exec du -h {} + 2>/dev/null | sort -hr | head -n 1000
+
+    - name: Aggressive cleanup
+      run: |
+        # Remove Java (JDKs)
+        sudo rm -rf /usr/lib/jvm
+
+        # Remove .NET SDKs
+        sudo rm -rf /usr/share/dotnet
+
+        # Remove Swift toolchain
+        sudo rm -rf /usr/share/swift
+
+        # Remove Haskell (GHC)
+        sudo rm -rf /usr/local/.ghcup
+
+        # Remove Julia
+        sudo rm -rf /usr/local/julia*
+
+        # Remove Android SDKs
+        sudo rm -rf /usr/local/lib/android
+
+        # Remove Chromium (optional if not using for browser tests)
+        sudo rm -rf /usr/local/share/chromium
+
+        # Remove Microsoft/Edge and Google Chrome builds
+        sudo rm -rf /opt/microsoft /opt/google
+
+        # Remove Azure CLI
+        sudo rm -rf /opt/az
+
+        # Remove PowerShell
+        sudo rm -rf /usr/local/share/powershell
+
+        # Remove CodeQL and other toolcaches
+        sudo rm -rf /opt/hostedtoolcache
+
+        docker system prune -af || true
+        docker builder prune -af || true
+        df -h
