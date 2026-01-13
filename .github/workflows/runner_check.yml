@@ -22,11 +22,11 @@ jobs:
   storage-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Show disk usage
-        run: df -h
+    - name: Show disk usage
+      run: df -h
 
-      - name: Top-level directories
-        run: du -h -d1 / | sort -hr | head -n 20
+    - name: Top-level directories
+      run: sudo du -h --max-depth=1 /usr /opt /mnt /home  # du -h -d1 / | sort -hr | head -n 20
 
-      - name: Detailed file sizes
-        run: find / -type f -exec du -h {} + 2>/dev/null | sort -hr | head -n 1000
+    - name: Detailed file sizes
+      run: find / -type f -exec du -h {} + 2>/dev/null | sort -hr | head -n 1000
