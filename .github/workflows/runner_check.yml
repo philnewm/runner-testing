@@ -26,7 +26,7 @@ jobs:
       run: df -h
 
     - name: Top-level directories
-      run: sudo du -h --max-depth=1 /usr /opt /mnt /home  # du -h -d1 / | sort -hr | head -n 20
+      run: sudo du -h --max-depth=1 /usr/local /usr/share /usr/lib /opt//hostedtoolcache /mnt /home  # du -h -d1 / | sort -hr | head -n 20
 
     - name: Detailed file sizes
       run: find / -type f -exec du -h {} + 2>/dev/null | sort -hr | head -n 1000
