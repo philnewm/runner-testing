@@ -72,3 +72,18 @@ jobs:
         docker system prune -af || true
         docker builder prune -af || true
         df -h
+
+    - name: Check space before extraction
+      run: df -h /tmp
+
+    - name: Get maya installer
+      run: curl -L -o /tmp/Autodesk_Maya_2026_3_Update_Linux_64bit.tgz https://efulfillment.autodesk.com/NetSWDLD/prd/2026/MAYA/670B3782-87C3-318C-B63E-B4465F01BD87//Autodesk_Maya_2026_3_Update_Linux_64bit.tgz
+
+    - name: Create tmp maya path
+      run: mkdir /tmp/maya_package
+    - name: Extract Maya installer
+      run: |
+        tar -xzvf /tmp/Autodesk_Maya_2026_3_Update_Linux_64bit.tgz -C /tmp/maya_package
+
+    - name: Check space after extraction
+      run: df -h /tmp
