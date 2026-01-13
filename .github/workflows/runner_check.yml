@@ -25,6 +25,9 @@ jobs:
     - name: Show disk usage
       run: df -h
 
+    - name: Check /tmp
+      run: df -h /tmp
+
     - name: Top-level directories
       run: sudo du -h /usr/lib/jvm /usr/share/dotnet /usr/share/swift /usr/local/.ghcup /usr/local/julia* /usr/local/lib/android /usr/local/share/chromium /opt/microsoft /opt/google /opt/az /usr/local/share/powershell /opt/hostedtoolcache | sort -hr | head -n 20
 
